@@ -1,8 +1,15 @@
 local api = vim.api
 local M = {}
 
+local MAX_CSV_ROW = 100
+
+function M.setup(configs)
+	if type(configs.max_csv_row) == 'number' then
+		MAX_CSV_ROW = configs.max_csv_row
+	end
+end
+
 local function print_separate_line(col_length, len, left, mid, separator, right)
-	-- local len = #col_length
 	local line = left
 
 	for i = 1, len do
@@ -31,8 +38,29 @@ function M.preview_csv()
 		return
 	end
 
-	local all_line = api.nvim_buf_get_lines(current_buf, 0, number_line, false)
+	local get_text = api.nvim_buf_get_lines(current_buf, 0, number_line, false)
+	local all_line
 	local csv_view = {}
+
+	if number_line == 1 then
+		if string.find(get_text[1], '\r') then
+			all_line = {}
+			local i = 0
+
+			for line in string.gmatch(get_text[1], '[^"\r"]+') do
+				i = i + 1
+				if i == MAX_CSV_ROW then
+					break
+				end
+				table.insert(all_line, line)
+			end
+		else
+			print('Not found line break')
+			return
+		end
+	else
+		all_line = get_text
+	end
 
 	local _, number_columns = string.gsub(all_line[1], ',', '')
 	number_columns = number_columns + 1
