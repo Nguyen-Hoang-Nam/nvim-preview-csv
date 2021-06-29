@@ -29,6 +29,21 @@ local function print_separate_line(col_length, len, left, mid, separator, right)
 	return line
 end
 
+local function split_string(str, reg, max_item)
+	local store = {}
+	local count = 0
+	for item in string.gmatch(str, reg) do
+		table.insert(store, item)
+
+		count = count + 1
+		if count == max_item then
+			break
+		end
+	end
+
+	return store
+end
+
 function M.preview_csv()
 	local current_buf = api.nvim_get_current_buf()
 	local filename = api.nvim_eval("expand('%:t')")
@@ -44,16 +59,7 @@ function M.preview_csv()
 
 	if number_line == 1 then
 		if string.find(get_text[1], '\r') then
-			all_line = {}
-			local i = 0
-
-			for line in string.gmatch(get_text[1], '[^"\r"]+') do
-				i = i + 1
-				if i == MAX_CSV_ROW then
-					break
-				end
-				table.insert(all_line, line)
-			end
+			all_line = split_string(get_text[1], '[^"\r"]+', MAX_CSV_ROW)
 		else
 			print('Not found line break')
 			return

@@ -1,17 +1,17 @@
-# Nvim-Preview
+# Nvim-Preview-CSV
 
-Preview some filetypes such as csv, markdown (not implement yet)
+Preview csv file
 
 ## Usage
 
 ```
-:lua require('nvim-preview').preview()
+:lua require('nvim-preview-csv').preview_csv()
 ```
 
 ## Setup
 
 ```lua
-local preview = require('nvim-previem')
+local preview = require('nvim-previem-csv')
 
 preview.setup {
 		max_csv_line = 100 -- CSV file may has thousands of lines which easily break neovim so choose carefully
@@ -20,18 +20,15 @@ preview.setup {
 
 ## Screenshot
 
-![CSV](https://raw.githubusercontent.com/Nguyen-Hoang-Nam/readme-image/main/nvim-preview/large_csv.png)
+![CSV](https://raw.githubusercontent.com/Nguyen-Hoang-Nam/readme-image/main/nvim-preview-csv/large_csv.png)
 
-![Preview](https://raw.githubusercontent.com/Nguyen-Hoang-Nam/readme-image/main/nvim-preview/preview_large_csv.png)
+![Preview](https://raw.githubusercontent.com/Nguyen-Hoang-Nam/readme-image/main/nvim-preview-csv/preview_large_csv.png)
 
 ## TODO
 
-- [ ] Support markdown
 - [ ] Show more line with large CSV file
 - [ ] Striped table
 - [ ] Add highlight group
-- [ ] Support OpenAPI
-- [ ] Support Groff
 
 ## Contributing
 
