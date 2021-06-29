@@ -5,7 +5,7 @@ Preview csv file
 ## Usage
 
 ```
-:lua require('nvim-preview-csv').preview_csv()
+:lua require('nvim-preview-csv').preview()
 ```
 
 ## Setup
